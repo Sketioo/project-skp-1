@@ -10,6 +10,8 @@ class Pegawai extends Model
     use HasFactory;
     protected $table = 'pegawai';
 
+    protected $guarded= ['id'];
+    
     public function user(){
         return $this->hasOne(User::class);
     }
