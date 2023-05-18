@@ -3,23 +3,22 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\PermissionRegistrar;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Spatie\Permission\Models\Role;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
-    
+
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run() {
+    public function run()
+    {
         // reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -47,6 +46,8 @@ class RolesAndPermissionsSeeder extends Seeder
         // ADMINS
         $adminPermission1 = Permission::create(['name' => 'read: admin']);
         $adminPermission2 = Permission::create(['name' => 'update: admin']);
+        $adminPermission3 = Permission::create(['name' => 'delete: admin']);
+        $adminPermission4 = Permission::create(['name' => 'create: admin']);
 
         // CREATE ROLES
         $userRole = Role::create(['name' => 'user'])->syncPermissions([
@@ -85,6 +86,8 @@ class RolesAndPermissionsSeeder extends Seeder
             $permission4,
             $adminPermission1,
             $adminPermission2,
+            $adminPermission3,
+            $adminPermission4,
             $userPermission1,
         ]);
         // $moderatorRole = Role::create(['name' => 'moderator'])->syncPermissions([
@@ -134,11 +137,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->assignRole($developerRole);
 
-        for ($i=1; $i < 5; $i++) {
+        for ($i = 1; $i < 5; $i++) {
             User::create([
-                'name' => 'Test '.$i,
+                'name' => 'Test ' . $i,
                 'is_admin' => 0,
-                'email' => 'test'.$i.'@test.com',
+                'email' => 'test' . $i . '@test.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('password'), // password
                 'remember_token' => Str::random(10),
