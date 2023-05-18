@@ -76,8 +76,7 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Matriks::class);
     }
-    public function pegawai()
-    {
+    public function pegawai(){
         return $this->belongsTo(Pegawai::class);
     }
 
